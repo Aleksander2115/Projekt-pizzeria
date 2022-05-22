@@ -17,7 +17,17 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href="Main_pageView.tpl">Strona główna</a></h1>
+					<h1 id="logo"><a href="Main_pageView.tpl"><u>Strona główna</u></a>
+					<span>
+						{if \core\RoleUtils::inRole('Admin')}
+							, czołem Adminie!
+						{else if \core\RoleUtils::inRole('Mod')}
+							, czołem Moderatorze
+						{else if \core\RoleUtils::inRole('User')}
+							, witaj
+						{/if}
+					</h1>
+					</span>
 					<nav id="nav">
 						<ul>
 							<li>
@@ -37,7 +47,12 @@
 									</li>
 								</ul>
 							</li>
-							<li><a href="{$conf->action_url}login" class="button primary">Zaloguj się</a></li>
+							{if count($conf->roles)>0}
+								<li><a href="{url action="logout"}" class="button">Wyloguj</a></li>
+							{else}
+								<li><a href="{url action="showLogin"}" class="button">Zaloguj</a></li>
+								<li><a href="{url action="NewRegistration"}" class="button primary">Zarejestruj się</a></li>
+							{/if}
 						</ul>
 					</nav>
 				</header>
@@ -48,7 +63,7 @@
 						<header>
 							<h2>Pizzeria Najlepsza</h2>
 							<p>Najlepsza pizzeria w mieście.<br />
-							Życzymy smacznego!.</p>
+							Życzymy smacznego!</p>
 						</header>
 						<span class="image"><img src="images/g1.jpg" alt="" /></span>
 					</div>
@@ -72,7 +87,7 @@
 								</div>
 								<div class="col-4 col-12-medium">
 									<p>Składniki jakie występują na naszych pizzach są najwyższej jakości.
-										 Identycznie jak ciasto, które przygotowuje pizzerman prosto z włoch.
+										 Identycznie jak ciasto, które przygotowuje pizzerman prosto z Włoch.
 										 </p>
 								</div>
 							</div>
@@ -91,7 +106,7 @@
 								 miękkiego sera mozzarella, świeżych listków bazylii, odrobiny soli i oliwy z oliwek z pierwszego tłoczenia.</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 						</ul>
 					</div>
 					<a href="#three" class="goto-next scrolly">Next</a>
@@ -107,7 +122,7 @@
 								 Składniki na włoską Capriciosa to sos pomidorowy, szynka i grzyby (tutaj pieczarki).</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
@@ -124,27 +139,29 @@
 									 liśćmi bazylii.</p>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Learn More</a></li>
+								<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 							</ul>
 						</div>
 						<a href="#five" class="goto-next scrolly">Next</a>
 					</section>
 
 
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
+					<!-- Five -->
+						<section id="five" class="spotlight style5 left">
+							<span class="image fit main bottom"><img src="images/g5.jpeg" alt="" /></span>
+							<div class="content">
+								<header>
+									<h2>4. Hawajska</h2>
+									<p>Pizza Hawajska to popularna pizza charakteryzująca się tradycyjnym drożdżowym ciastem,
+										sosem pomidorowym i dodatkiem szynki oraz ananasa.</p>
+								</header>
+								<ul class="actions">
+									<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+								</ul>
+							</div>
+							<a href="#five" class="goto-next scrolly">Next</a>
+						</section>
+
 
 		</div>
 

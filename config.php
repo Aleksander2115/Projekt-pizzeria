@@ -9,7 +9,7 @@ $conf->app_root = '/Pizzeria/public';   # project subfolder in domain (relative 
 # ---- Database config - values required by Medoo
 $conf->db_type = 'mysql';
 $conf->db_server = 'localhost';
-$conf->db_name = 'DB_Pizzeria';
+$conf->db_name = 'db_pizzeria';
 $conf->db_user = 'root';
 $conf->db_pass = '';
 $conf->db_charset = 'utf8';

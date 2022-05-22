@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-10 01:52:00
+/* Smarty version 4.1.0, created on 2022-05-22 15:31:19
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\Main_pageView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_6279a920d47d86_35339420',
+  'unifunc' => 'content_628a3b270a0991_81654372',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '281b974013688d8c9baa34e599e58c598a73ce52' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\Main_pageView.tpl',
-      1 => 1652140319,
+      1 => 1653226272,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6279a920d47d86_35339420 (Smarty_Internal_Template $_smarty_tpl) {
+function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <!--
 	Landed by HTML5 UP
@@ -40,7 +40,17 @@ function content_6279a920d47d86_35339420 (Smarty_Internal_Template $_smarty_tpl)
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href="Main_pageView.tpl">Strona główna</a></h1>
+					<h1 id="logo"><a href="Main_pageView.tpl"><u>Strona główna</u></a>
+					<span>
+						<?php if (\core\RoleUtils::inRole('Admin')) {?>
+							, czołem Adminie!
+						<?php } elseif (\core\RoleUtils::inRole('Mod')) {?>
+							, czołem Moderatorze
+						<?php } elseif (\core\RoleUtils::inRole('User')) {?>
+							, witaj
+						<?php }?>
+					</h1>
+					</span>
 					<nav id="nav">
 						<ul>
 							<li>
@@ -60,8 +70,15 @@ function content_6279a920d47d86_35339420 (Smarty_Internal_Template $_smarty_tpl)
 									</li>
 								</ul>
 							</li>
-							<li><a href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
-login" class="button primary">Zaloguj się</a></li>
+							<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"logout"),$_smarty_tpl ) );?>
+" class="button">Wyloguj</a></li>
+							<?php } else { ?>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
+" class="button">Zaloguj</a></li>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"NewRegistration"),$_smarty_tpl ) );?>
+" class="button primary">Zarejestruj się</a></li>
+							<?php }?>
 						</ul>
 					</nav>
 				</header>
@@ -72,7 +89,7 @@ login" class="button primary">Zaloguj się</a></li>
 						<header>
 							<h2>Pizzeria Najlepsza</h2>
 							<p>Najlepsza pizzeria w mieście.<br />
-							Życzymy smacznego!.</p>
+							Życzymy smacznego!</p>
 						</header>
 						<span class="image"><img src="images/g1.jpg" alt="" /></span>
 					</div>
@@ -96,7 +113,7 @@ login" class="button primary">Zaloguj się</a></li>
 								</div>
 								<div class="col-4 col-12-medium">
 									<p>Składniki jakie występują na naszych pizzach są najwyższej jakości.
-										 Identycznie jak ciasto, które przygotowuje pizzerman prosto z włoch.
+										 Identycznie jak ciasto, które przygotowuje pizzerman prosto z Włoch.
 										 </p>
 								</div>
 							</div>
@@ -115,7 +132,7 @@ login" class="button primary">Zaloguj się</a></li>
 								 miękkiego sera mozzarella, świeżych listków bazylii, odrobiny soli i oliwy z oliwek z pierwszego tłoczenia.</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 						</ul>
 					</div>
 					<a href="#three" class="goto-next scrolly">Next</a>
@@ -131,7 +148,7 @@ login" class="button primary">Zaloguj się</a></li>
 								 Składniki na włoską Capriciosa to sos pomidorowy, szynka i grzyby (tutaj pieczarki).</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
@@ -148,27 +165,29 @@ login" class="button primary">Zaloguj się</a></li>
 									 liśćmi bazylii.</p>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Learn More</a></li>
+								<li><a href="#" class="button">Dodaj do zamówienia</a></li>
 							</ul>
 						</div>
 						<a href="#five" class="goto-next scrolly">Next</a>
 					</section>
 
 
-			<!-- Footer -->
-				<footer id="footer">
-					<ul class="icons">
-						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</footer>
+					<!-- Five -->
+						<section id="five" class="spotlight style5 left">
+							<span class="image fit main bottom"><img src="images/g5.jpeg" alt="" /></span>
+							<div class="content">
+								<header>
+									<h2>4. Hawajska</h2>
+									<p>Pizza Hawajska to popularna pizza charakteryzująca się tradycyjnym drożdżowym ciastem,
+										sosem pomidorowym i dodatkiem szynki oraz ananasa.</p>
+								</header>
+								<ul class="actions">
+									<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+								</ul>
+							</div>
+							<a href="#five" class="goto-next scrolly">Next</a>
+						</section>
+
 
 		</div>
 

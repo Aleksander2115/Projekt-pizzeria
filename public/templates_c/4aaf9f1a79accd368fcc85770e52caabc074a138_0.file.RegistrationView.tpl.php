@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-20 14:53:33
-  from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\LoginView.tpl' */
+/* Smarty version 4.1.0, created on 2022-05-20 10:46:08
+  from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\RegistrationView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_62878f4d61d8e8_76984736',
+  'unifunc' => 'content_628755503ec0e2_98509639',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '1ae2cdd0fa0ceef0c0e7484df01041e86d4f84cb' => 
+    '4aaf9f1a79accd368fcc85770e52caabc074a138' => 
     array (
-      0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\LoginView.tpl',
-      1 => 1653051206,
+      0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\RegistrationView.tpl',
+      1 => 1653036358,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62878f4d61d8e8_76984736 (Smarty_Internal_Template $_smarty_tpl) {
+function content_628755503ec0e2_98509639 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -50,7 +50,7 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Logowanie</h2>
+							<h2>Rejestracja</h2>
 						</header>
 
 
@@ -58,18 +58,47 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
             <!-- Form -->
 							<section>
 								<form method="post" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
-login">
+registry">
 									<div class="row gtr-uniform gtr-50">
                     <div class="col-6 col-12-xsmall">
-											<input type="text" name="Login" id="Login" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Login;?>
+                      <input type="text" name="Login" id="Login" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Login;?>
 " placeholder="Login" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
+" placeholder="Hasło" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+											<input type="text" name="Imie" id="Imie" value="" placeholder="Imię" />
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
-" placeholder="Hasło" />
+											<input type="text" name="Nazwisko" id="Nazwisko" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Nazwisko;?>
+" placeholder="Nazwisko" />
 										</div>
+                    <div class="col-3 col-12-xsmall">
+                      <input type="text" name="Kod_pocztowy" id="Kod_pocztowy" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Kod_pocztowy;?>
+" placeholder="Kod Pocztowy" />
+                    </div>
+                    <div class="col-9 col-12-xsmall">
+                      <input type="text" name="Miejscowosc" id="Miejscowosc" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Miejscowosc;?>
+" placeholder="Miejscowość" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Ulica" id="Ulica" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Ulica;?>
+" placeholder="Ulica" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Nr_domu" id="Nr_domu" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Nr_domu;?>
+" placeholder="Numer domu" />
+                    </div>
+                    <div class="col-12 col-12-xsmall">
+                      <input type="text" name="Nr_telefonu" id="Nr_telefonu" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Nr_telefonu;?>
+" placeholder="Numer telefonu" />
+                    </div>
                     <ul class="actions">
-                      <li><input type="submit" value="Zaloguj" class="primary" /></li>
+                      <input type="hidden" name="Id_uzytkownik" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Id_uzytkownik;?>
+">
+                      <li><input type="submit" value="Zarejestruj" class="primary" /></li>
                     </ul>
 									</div>
 								</form>
@@ -77,8 +106,8 @@ login">
 					</div>
 				</div>
 
-<?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_199733660662878f4d56a736_66992769', 'messages');
+        <?php 
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_69365254762875550385382_11367923', 'messages');
 ?>
 
 
@@ -121,12 +150,12 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_199733660662878f4d
 </html>
 <?php }
 /* {block 'messages'} */
-class Block_199733660662878f4d56a736_66992769 extends Smarty_Internal_Block
+class Block_69365254762875550385382_11367923 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'messages' => 
   array (
-    0 => 'Block_199733660662878f4d56a736_66992769',
+    0 => 'Block_69365254762875550385382_11367923',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

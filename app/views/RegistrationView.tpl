@@ -24,23 +24,45 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Logowanie</h2>
+							<h2>Rejestracja</h2>
 						</header>
 
 
       <!-- Content -->
             <!-- Form -->
 							<section>
-								<form method="post" action="{$conf->action_url}login">
+								<form method="post" action="{$conf->action_url}registry">
 									<div class="row gtr-uniform gtr-50">
                     <div class="col-6 col-12-xsmall">
-											<input type="text" name="Login" id="Login" value="{$form->Login}" placeholder="Login" />
+                      <input type="text" name="Login" id="Login" value="{$form->Login}" placeholder="Login" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Haslo" id="Haslo" value="{$form->Haslo}" placeholder="Hasło" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+											<input type="text" name="Imie" id="Imie" value="" placeholder="Imię" />
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="Haslo" id="Haslo" value="{$form->Haslo}" placeholder="Hasło" />
+											<input type="text" name="Nazwisko" id="Nazwisko" value="{$form->Nazwisko}" placeholder="Nazwisko" />
 										</div>
+                    <div class="col-3 col-12-xsmall">
+                      <input type="text" name="Kod_pocztowy" id="Kod_pocztowy" value="{$form->Kod_pocztowy}" placeholder="Kod Pocztowy" />
+                    </div>
+                    <div class="col-9 col-12-xsmall">
+                      <input type="text" name="Miejscowosc" id="Miejscowosc" value="{$form->Miejscowosc}" placeholder="Miejscowość" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Ulica" id="Ulica" value="{$form->Ulica}" placeholder="Ulica" />
+                    </div>
+                    <div class="col-6 col-12-xsmall">
+                      <input type="text" name="Nr_domu" id="Nr_domu" value="{$form->Nr_domu}" placeholder="Numer domu" />
+                    </div>
+                    <div class="col-12 col-12-xsmall">
+                      <input type="text" name="Nr_telefonu" id="Nr_telefonu" value="{$form->Nr_telefonu}" placeholder="Numer telefonu" />
+                    </div>
                     <ul class="actions">
-                      <li><input type="submit" value="Zaloguj" class="primary" /></li>
+                      <input type="hidden" name="Id_uzytkownik" value="{$form->Id_uzytkownik}">
+                      <li><input type="submit" value="Zarejestruj" class="primary" /></li>
                     </ul>
 									</div>
 								</form>
@@ -48,7 +70,7 @@
 					</div>
 				</div>
 
-{block name=messages}
+        {block name=messages}
 
 {if $msgs->isMessage()}
 <div class="messages bottom-margin">

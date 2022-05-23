@@ -6,7 +6,7 @@ class RegistrationForm{
 
   public $Login;
   public $Haslo;
-  public $Id_uzytkownik;
+  public $ID_Uzytkownik;
   public $Imie;
   public $Nazwisko;
   public $Nr_telefonu;

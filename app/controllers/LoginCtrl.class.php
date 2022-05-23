@@ -37,6 +37,7 @@ class LoginCtrl {
 
       if($this->form->Login && $this->form->Haslo == "Admin"){
         RoleUtils::addRole("Admin");
+        App::getRouter()->redirectTo("adminRoleList");
         return !App::getMessages()->isError();
       } else if ($this->form->Login && $this->form->Haslo == "Mod"){
         RoleUtils::addRole("Mod");

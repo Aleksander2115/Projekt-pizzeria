@@ -20,7 +20,7 @@ class RegistrationCtrl {
     }
 
     public function getParams(){
-      $this->form->Id_uzytkownik = ParamUtils::getFromRequest("Id_uzytkownik", true, 'idBłędne wywołąnie aplikacji');
+      $this->form->ID_Uzytkownik = ParamUtils::getFromRequest("ID_Uzytkownik", true, 'idBłędne wywołąnie aplikacji');
       $this->form->Imie = ParamUtils::getFromRequest("Imie", true, 'imBłędne wywołąnie aplikacji');
       $this->form->Nazwisko = ParamUtils::getFromRequest("Nazwisko", true, 'naBłędne wywołąnie aplikacji');
       $this->form->Nr_telefonu = ParamUtils::getFromRequest("Nr_telefonu", true, 'nrteBłędne wywołąnie aplikacji');
@@ -98,7 +98,7 @@ class RegistrationCtrl {
 
       if ($this->validateRegistration()){
         try{
-          //if ($this->form->Id_uzytkownik == ''){
+          //if ($this->form->ID_Uzytkownik == ''){
               App::getDB()->insert("uzytkownik", [
                 "Imie" => $this->form->Imie,
                 "Nazwisko" => $this->form->Nazwisko,

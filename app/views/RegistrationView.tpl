@@ -61,7 +61,7 @@
                       <input type="text" name="Nr_telefonu" id="Nr_telefonu" value="{$form->Nr_telefonu}" placeholder="Numer telefonu" />
                     </div>
                     <ul class="actions">
-                      <input type="hidden" name="Id_uzytkownik" value="{$form->Id_uzytkownik}">
+                      <input type="hidden" name="ID_Uzytkownik" value="{$form->ID_Uzytkownik}">
                       <li><input type="submit" value="Zarejestruj" class="primary" /></li>
                     </ul>
 									</div>

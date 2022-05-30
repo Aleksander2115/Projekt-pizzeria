@@ -13,6 +13,7 @@ class AdminCtrl{
 
   private $form;
   private $records;
+  private $admin_userList;
 
   public function __construct() {
     $this->form = new AdminForm();
@@ -49,9 +50,25 @@ class AdminCtrl{
         if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
     }
 
+    //lista dla admina
+    $userWithRole = App::getDB()->select("uzytkownik_rola" , "ID_Uzytkownik");
+
+    try{
+      $this->admin_userList = App::getDB()->select("uzytkownik", [
+        "ID_Uzytkownik",
+        "Login",
+      ],[
+        "ID_Uzytkownik[!]" => $userWithRole
+      ]);
+    } catch (\PDOException $e) {
+        Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+        if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
+
 
       App::getSmarty()->assign('form', $this->form); // dane formularza (wyszukiwania w tym wypadku)
-      App::getSmarty()->assign('people', $this->records);  // lista rekordów z bazy danych
+      App::getSmarty()->assign('people', $this->records);
+      App::getSmarty()->assign('admin_userList', $this->admin_userList);
       App::getSmarty()->display("AdminView.tpl");
   }
 
@@ -59,8 +76,9 @@ class AdminCtrl{
     $this->getParams();
     try{
       App::getDB()->update("uzytkownik_rola", [
-        "ID_Uzytkownik" => $this->form->ID_Uzytkownik,
         "ID_Rola" => "3"
+      ],[
+        "ID_Uzytkownik" => $this->form->ID_Uzytkownik
       ]);
     } catch (\PDOException $e) {
         Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
@@ -73,8 +91,9 @@ class AdminCtrl{
     $this->getParams();
     try{
       App::getDB()->update("uzytkownik_rola", [
-        "ID_Uzytkownik" => $this->form->ID_Uzytkownik,
         "ID_Rola" => "2"
+      ],[
+        "ID_Uzytkownik" => $this->form->ID_Uzytkownik
       ]);
     } catch (\PDOException $e) {
         Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
@@ -87,8 +106,9 @@ class AdminCtrl{
     $this->getParams();
     try{
       App::getDB()->update("uzytkownik_rola", [
-        "ID_Uzytkownik" => $this->form->ID_Uzytkownik,
         "ID_Rola" => "1"
+      ],[
+        "ID_Uzytkownik" => $this->form->ID_Uzytkownik
       ]);
     } catch (\PDOException $e) {
         Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');

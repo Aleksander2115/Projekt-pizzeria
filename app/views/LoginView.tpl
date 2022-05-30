@@ -37,7 +37,7 @@
 											<input type="text" name="Login" id="Login" value="{$form->Login}" placeholder="Login" />
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="Haslo" id="Haslo" value="{$form->Haslo}" placeholder="Hasło" />
+											<input type="password" name="Haslo" id="Haslo" value="{$form->Haslo}" placeholder="Hasło" />
 										</div>
                     <ul class="actions">
                       <li><input type="submit" value="Zaloguj" class="primary" /></li>

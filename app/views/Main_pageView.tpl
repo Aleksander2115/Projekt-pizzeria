@@ -48,7 +48,8 @@
 								</ul>
 							</li>
 							{if count($conf->roles)>0}
-								<li><a href="{url action="logout"}" class="button">Wyloguj</a></li>
+								<li><a href="{url action="showOrders"}" class="button">Twoje zamówienia</a></li>
+								<li><a href="{url action="logout"}" class="button primary">Wyloguj</a></li>
 							{else}
 								<li><a href="{url action="showLogin"}" class="button">Zaloguj</a></li>
 								<li><a href="{url action="NewRegistration"}" class="button primary">Zarejestruj się</a></li>
@@ -98,6 +99,7 @@
 
 			<!-- Two -->
 				<section id="two" class="spotlight style2 right">
+					<form method="post" action="{$conf->action_url}addToOrder">
 					<span class="image fit main"><img src="images/g2.jpeg" alt="" /></span>
 					<div class="content">
 						<header>
@@ -106,10 +108,15 @@
 								 miękkiego sera mozzarella, świeżych listków bazylii, odrobiny soli i oliwy z oliwek z pierwszego tłoczenia.</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+							{if count($conf->roles) > 0}
+							<li><a href="{url action="showOrders"}" class="button">Przejdź do zamówienia</a></li>
+							{else}
+							<li><a href="{url action="showLogin"}" class="button">Dodaj do zamówienia</a></li>
+							{/if}
 						</ul>
 					</div>
-					<a href="#three" class="goto-next scrolly">Next</a>
+						<a href="#three" class="goto-next scrolly">Next</a>
+					</form>
 				</section>
 
 			<!-- Three -->
@@ -122,7 +129,11 @@
 								 Składniki na włoską Capriciosa to sos pomidorowy, szynka i grzyby (tutaj pieczarki).</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+							{if count($conf->roles) > 0}
+							<li><a href="{url action="showOrders"}" class="button">Przejdź do zamówienia</a></li>
+							{else}
+							<li><a href="{url action="showLogin"}" class="button">Dodaj do zamówienia</a></li>
+							{/if}
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
@@ -139,7 +150,11 @@
 									 liśćmi bazylii.</p>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+								{if count($conf->roles) > 0}
+								<li><a href="{url action="showOrders"}" class="button">Przejdź do zamówienia</a></li>
+								{else}
+								<li><a href="{url action="showLogin"}" class="button">Dodaj do zamówienia</a></li>
+								{/if}
 							</ul>
 						</div>
 						<a href="#five" class="goto-next scrolly">Next</a>
@@ -156,13 +171,15 @@
 										sosem pomidorowym i dodatkiem szynki oraz ananasa.</p>
 								</header>
 								<ul class="actions">
-									<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+									{if count($conf->roles) > 0}
+									<li><a href="{url action="showOrders"}" class="button">Przejdź do zamówienia</a></li>
+									{else}
+									<li><a href="{url action="showLogin"}" class="button">Dodaj do zamówienia</a></li>
+									{/if}
 								</ul>
 							</div>
 							<a href="#five" class="goto-next scrolly">Next</a>
 						</section>
-
-
 		</div>
 
 		<!-- Scripts -->

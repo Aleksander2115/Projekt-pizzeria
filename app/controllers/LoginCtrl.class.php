@@ -7,6 +7,7 @@ use core\Message;
 use core\Utils;
 use core\ParamUtils;
 use core\RoleUtils;
+use core\SessionUtils;
 use app\forms\RegistrationForm;
 
 class LoginCtrl {
@@ -19,6 +20,7 @@ class LoginCtrl {
     public function getParams(){
       $this->form->Login = ParamUtils::getFromRequest("Login", true, 'logBłędne wywołanie aplikacji');
       $this->form->Haslo = ParamUtils::getFromRequest("Haslo", true, 'haslBłędne wywołanie aplikacji');
+      $this->form->ID_Uzytkownik = App::getDB()->select("uzytkownik" , "ID_Uzytkownik" , ["Login" => $this->form->Login]);
     }
 
     public function validate(){
@@ -56,6 +58,16 @@ class LoginCtrl {
       if (App::getMessages()->isError())
         return false;
 
+      if(!App::getDB()->has("uzytkownik_rola" , [
+        "ID_Uzytkownik" => $this->form->ID_Uzytkownik
+      ])){
+            Utils::addErrorMessage('Użytkownik nie posiada żadnej roli, administrator musi ją dodać');
+      }
+
+
+      if (App::getMessages()->isError())
+        return false;
+
 
       // $v = new Validator();
       //
@@ -78,6 +90,7 @@ class LoginCtrl {
     public function action_login(){
 
       if ($this->validate()){
+        SessionUtils::store("ID_Uzytkownik", $this->form->ID_Uzytkownik);
         Utils::addInfoMessage('Poprawnie zalogowano do systemu');
         App::getRouter()->redirectTo("Main_page");
       } else {
@@ -88,6 +101,7 @@ class LoginCtrl {
     }
 
     public function action_logout(){
+      SessionUtils::remove("ID_Uzytkownik");
       session_destroy();
       App::getRouter()->redirectTo("Main_page");
     }
@@ -98,5 +112,3 @@ class LoginCtrl {
 
     }
 }
-
- ?>

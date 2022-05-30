@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-22 20:07:32
+/* Smarty version 4.1.0, created on 2022-05-29 17:10:29
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\AdminView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_628a7be4bc8b27_17432712',
+  'unifunc' => 'content_62938ce518e630_74600717',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '709fdfceeee35d362c12c9437f8cc40b7bdfa347' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\AdminView.tpl',
-      1 => 1653242848,
+      1 => 1653837026,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_628a7be4bc8b27_17432712 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62938ce518e630_74600717 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -94,16 +94,53 @@ $_smarty_tpl->tpl_vars['p']->do_else = false;
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 										</tbody>
+                  </table>
 										<tfoot>
 										</tfoot>
-									</table>
 								</div>
 							</section>
+
+              <!-- Lista użytkowników bez roli dla admina -->
+
+              <header class="major">
+                <h2>Lista użytkowników do przypisania</h2>
+              </header>
+              <section>
+                <div class="table-wrapper">
+                  <table class="alt">
+                    <thead>
+                      <tr>
+                        <th>ID Użytkownika</th>
+                        <th>Login</th>
+                        <th>Opcje</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['admin_userList']->value, 'aul');
+$_smarty_tpl->tpl_vars['aul']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['aul']->value) {
+$_smarty_tpl->tpl_vars['aul']->do_else = false;
+?>
+                    <tr><td><?php echo $_smarty_tpl->tpl_vars['aul']->value["ID_Uzytkownik"];?>
+</td><td><?php echo $_smarty_tpl->tpl_vars['aul']->value["Login"];?>
+</td><td><a class="button primary small" href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"adminAdd"),$_smarty_tpl ) );?>
+/<?php echo $_smarty_tpl->tpl_vars['aul']->value['ID_Uzytkownik'];?>
+">Dodaj</a></td></tr>
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    </tbody>
+                  </table>
+                    <tfoot>
+                    </tfoot>
+                </div>
+              </section>
 					</div>
 				</div>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1619862341628a7be4bc2c48_08716413', 'messages');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_171560830762938ce5188440_63805188', 'messages');
 ?>
 
 
@@ -146,12 +183,12 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1619862341628a7be4
 </html>
 <?php }
 /* {block 'messages'} */
-class Block_1619862341628a7be4bc2c48_08716413 extends Smarty_Internal_Block
+class Block_171560830762938ce5188440_63805188 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'messages' => 
   array (
-    0 => 'Block_1619862341628a7be4bc2c48_08716413',
+    0 => 'Block_171560830762938ce5188440_63805188',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

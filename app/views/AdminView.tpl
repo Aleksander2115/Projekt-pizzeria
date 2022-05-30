@@ -61,11 +61,45 @@
                     {/strip}
                     {/foreach}
 										</tbody>
+                  </table>
 										<tfoot>
 										</tfoot>
-									</table>
 								</div>
 							</section>
+
+              <!-- Lista użytkowników bez roli dla admina -->
+
+              <header class="major">
+                <h2>Lista użytkowników do przypisania</h2>
+              </header>
+              <section>
+                <div class="table-wrapper">
+                  <table class="alt">
+                    <thead>
+                      <tr>
+                        <th>ID Użytkownika</th>
+                        <th>Login</th>
+                        <th>Opcje</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $admin_userList as $aul}
+                    {strip}
+                      <tr>
+                        <td>{$aul["ID_Uzytkownik"]}</td>
+                        <td>{$aul["Login"]}</td>
+                        <td>
+                          <a class="button primary small" href="{url action="adminAdd"}/{$aul['ID_Uzytkownik']}">Dodaj</a>
+                        </td>
+                      </tr>
+                    {/strip}
+                    {/foreach}
+                    </tbody>
+                  </table>
+                    <tfoot>
+                    </tfoot>
+                </div>
+              </section>
 					</div>
 				</div>
 

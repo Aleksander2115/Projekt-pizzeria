@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-22 15:31:19
+/* Smarty version 4.1.0, created on 2022-05-30 21:08:50
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\Main_pageView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_628a3b270a0991_81654372',
+  'unifunc' => 'content_62951642216cb4_18085893',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '281b974013688d8c9baa34e599e58c598a73ce52' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\Main_pageView.tpl',
-      1 => 1653226272,
+      1 => 1653937656,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62951642216cb4_18085893 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <!--
 	Landed by HTML5 UP
@@ -71,8 +71,10 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 								</ul>
 							</li>
 							<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showOrders"),$_smarty_tpl ) );?>
+" class="button">Twoje zamówienia</a></li>
 								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"logout"),$_smarty_tpl ) );?>
-" class="button">Wyloguj</a></li>
+" class="button primary">Wyloguj</a></li>
 							<?php } else { ?>
 								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
 " class="button">Zaloguj</a></li>
@@ -124,6 +126,8 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 
 			<!-- Two -->
 				<section id="two" class="spotlight style2 right">
+					<form method="post" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
+addToOrder">
 					<span class="image fit main"><img src="images/g2.jpeg" alt="" /></span>
 					<div class="content">
 						<header>
@@ -132,10 +136,17 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 								 miękkiego sera mozzarella, świeżych listków bazylii, odrobiny soli i oliwy z oliwek z pierwszego tłoczenia.</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+							<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+							<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showOrders"),$_smarty_tpl ) );?>
+" class="button">Przejdź do zamówienia</a></li>
+							<?php } else { ?>
+							<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
+" class="button">Dodaj do zamówienia</a></li>
+							<?php }?>
 						</ul>
 					</div>
-					<a href="#three" class="goto-next scrolly">Next</a>
+						<a href="#three" class="goto-next scrolly">Next</a>
+					</form>
 				</section>
 
 			<!-- Three -->
@@ -148,7 +159,13 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 								 Składniki na włoską Capriciosa to sos pomidorowy, szynka i grzyby (tutaj pieczarki).</p>
 						</header>
 						<ul class="actions">
-							<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+							<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+							<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showOrders"),$_smarty_tpl ) );?>
+" class="button">Przejdź do zamówienia</a></li>
+							<?php } else { ?>
+							<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
+" class="button">Dodaj do zamówienia</a></li>
+							<?php }?>
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
@@ -165,7 +182,13 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 									 liśćmi bazylii.</p>
 							</header>
 							<ul class="actions">
-								<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+								<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showOrders"),$_smarty_tpl ) );?>
+" class="button">Przejdź do zamówienia</a></li>
+								<?php } else { ?>
+								<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
+" class="button">Dodaj do zamówienia</a></li>
+								<?php }?>
 							</ul>
 						</div>
 						<a href="#five" class="goto-next scrolly">Next</a>
@@ -182,13 +205,17 @@ function content_628a3b270a0991_81654372 (Smarty_Internal_Template $_smarty_tpl)
 										sosem pomidorowym i dodatkiem szynki oraz ananasa.</p>
 								</header>
 								<ul class="actions">
-									<li><a href="#" class="button">Dodaj do zamówienia</a></li>
+									<?php if (count($_smarty_tpl->tpl_vars['conf']->value->roles) > 0) {?>
+									<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showOrders"),$_smarty_tpl ) );?>
+" class="button">Przejdź do zamówienia</a></li>
+									<?php } else { ?>
+									<li><a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"showLogin"),$_smarty_tpl ) );?>
+" class="button">Dodaj do zamówienia</a></li>
+									<?php }?>
 								</ul>
 							</div>
 							<a href="#five" class="goto-next scrolly">Next</a>
 						</section>
-
-
 		</div>
 
 		<!-- Scripts -->

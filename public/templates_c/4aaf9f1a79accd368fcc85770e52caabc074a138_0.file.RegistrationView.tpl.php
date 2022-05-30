@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-22 21:09:04
+/* Smarty version 4.1.0, created on 2022-05-30 13:06:12
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\RegistrationView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_628a8a50e17390_42045704',
+  'unifunc' => 'content_6294a524378d78_43521536',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4aaf9f1a79accd368fcc85770e52caabc074a138' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\RegistrationView.tpl',
-      1 => 1653243212,
+      1 => 1653908749,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_628a8a50e17390_42045704 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6294a524378d78_43521536 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -65,7 +65,7 @@ registry">
 " placeholder="Login" />
                     </div>
                     <div class="col-6 col-12-xsmall">
-                      <input type="text" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
+                      <input type="password" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
 " placeholder="Hasło" />
                     </div>
                     <div class="col-6 col-12-xsmall">
@@ -96,8 +96,6 @@ registry">
 " placeholder="Numer telefonu" />
                     </div>
                     <ul class="actions">
-                      <input type="hidden" name="ID_Uzytkownik" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->ID_Uzytkownik;?>
-">
                       <li><input type="submit" value="Zarejestruj" class="primary" /></li>
                     </ul>
 									</div>
@@ -107,7 +105,7 @@ registry">
 				</div>
 
         <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_379832086628a8a50e0c594_05905805', 'messages');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_9177182266294a524305518_93727615', 'messages');
 ?>
 
 
@@ -150,12 +148,12 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_379832086628a8a50e
 </html>
 <?php }
 /* {block 'messages'} */
-class Block_379832086628a8a50e0c594_05905805 extends Smarty_Internal_Block
+class Block_9177182266294a524305518_93727615 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'messages' => 
   array (
-    0 => 'Block_379832086628a8a50e0c594_05905805',
+    0 => 'Block_9177182266294a524305518_93727615',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

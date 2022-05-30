@@ -8,6 +8,7 @@ use core\Validator;
 use core\Messages;
 use core\ParamUtils;
 use core\RoleUtils;
+use core\SessionUtils;
 use app\forms\RegistrationForm;
 use PDOException;
 
@@ -20,7 +21,7 @@ class RegistrationCtrl {
     }
 
     public function getParams(){
-      $this->form->ID_Uzytkownik = ParamUtils::getFromRequest("ID_Uzytkownik", true, 'idBłędne wywołąnie aplikacji');
+      $this->form->ID_Uzytkownik = ParamUtils::getFromRequest("Imie", true, 'id_uzBłędne wywołąnie aplikacji');
       $this->form->Imie = ParamUtils::getFromRequest("Imie", true, 'imBłędne wywołąnie aplikacji');
       $this->form->Nazwisko = ParamUtils::getFromRequest("Nazwisko", true, 'naBłędne wywołąnie aplikacji');
       $this->form->Nr_telefonu = ParamUtils::getFromRequest("Nr_telefonu", true, 'nrteBłędne wywołąnie aplikacji');
@@ -79,6 +80,13 @@ class RegistrationCtrl {
       if (App::getMessages()->isError())
         return false;
 
+      if (App::getDB()->has("uzytkownik", [
+        "Login" => $this->form->Login,
+        "Haslo" => $this->form->Haslo
+      ])){
+        Utils::addErrorMessage('Taki użytkownik już istnieje');
+      }
+
       // $v = new Validator();
       //
       // $this->form->Imie = $v->validate("Imie", [
@@ -98,7 +106,6 @@ class RegistrationCtrl {
 
       if ($this->validateRegistration()){
         try{
-          //if ($this->form->ID_Uzytkownik == ''){
               App::getDB()->insert("uzytkownik", [
                 "Imie" => $this->form->Imie,
                 "Nazwisko" => $this->form->Nazwisko,
@@ -115,13 +122,11 @@ class RegistrationCtrl {
                 "ID_Uzytkownik" => App::getDB()->id("uzytkownik"),
                 "ID_Rola" => "1"
               ]);
-
-            //}
           } catch (\PDOException $e){
               Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
               if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
           }
-
+          SessionUtils::store("ID_Uzytkownik", $this->form->ID_Uzytkownik);
           RoleUtils::addRole("User");
           App::getRouter()->redirectTo("Main_page");
 

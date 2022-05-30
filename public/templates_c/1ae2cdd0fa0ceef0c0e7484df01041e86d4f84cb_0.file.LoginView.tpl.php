@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-22 18:37:12
+/* Smarty version 4.1.0, created on 2022-05-30 01:29:50
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\LoginView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_628a66b8267015_38336004',
+  'unifunc' => 'content_629401ee18a6c6_21370820',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1ae2cdd0fa0ceef0c0e7484df01041e86d4f84cb' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\LoginView.tpl',
-      1 => 1653237429,
+      1 => 1653866865,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_628a66b8267015_38336004 (Smarty_Internal_Template $_smarty_tpl) {
+function content_629401ee18a6c6_21370820 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -65,7 +65,7 @@ login">
 " placeholder="Login" />
 										</div>
 										<div class="col-6 col-12-xsmall">
-											<input type="text" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
+											<input type="password" name="Haslo" id="Haslo" value="<?php echo $_smarty_tpl->tpl_vars['form']->value->Haslo;?>
 " placeholder="Hasło" />
 										</div>
                     <ul class="actions">
@@ -78,7 +78,7 @@ login">
 				</div>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1887053382628a66b825b262_56673705', 'messages');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1789686562629401ee17dee3_54934679', 'messages');
 ?>
 
 
@@ -121,12 +121,12 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1887053382628a66b8
 </html>
 <?php }
 /* {block 'messages'} */
-class Block_1887053382628a66b825b262_56673705 extends Smarty_Internal_Block
+class Block_1789686562629401ee17dee3_54934679 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'messages' => 
   array (
-    0 => 'Block_1887053382628a66b825b262_56673705',
+    0 => 'Block_1789686562629401ee17dee3_54934679',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

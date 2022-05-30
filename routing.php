@@ -18,3 +18,5 @@ Utils::addRoute('adminAdd', 'AdminCtrl');
 Utils::addRoute('adminChangeToAdmin', 'AdminCtrl');
 Utils::addRoute('adminChangeToMod', 'AdminCtrl');
 Utils::addRoute('adminChangeToUser', 'AdminCtrl');
+Utils::addRoute('addToOrder', 'OrderCtrl');
+Utils::addRoute('showOrders', 'OrderCtrl');

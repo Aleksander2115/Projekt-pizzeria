@@ -24,14 +24,9 @@ class OrderCtrl {
   }
 
   public function getParams(){
-    $this->form->ID_Uzytkownik = App::getDB()->select("uzytkownik", "ID_Uzytkownik", ["ID_Uzytkownik" => ParamUtils::getFromSession("ID_Uzytkownik")]);
-    $this->form->ID_Zamowienie = ParamUtils::getFromRequest("ID_Zamowienie", true, "id_zam Błędne wywołanie aplikacji");
-    $this->form->ID_Dodatek = ParamUtils::getFromRequest("ID_Dodatek", true, "id_dod Błędne wywołanie aplikacji");
+    $this->form->ID_Uzytkownik = SessionUtils::load("ID_Uzytkownik", true);
+    $this->form->ID_Zamowienie = SessionUtils::load("ID_Zamowienie", true);
     $this->form->Nazwa_dodatku = ParamUtils::getFromRequest("Nazwa_dodatku");
-    //$this->form->Rodzaj = ParamUtils::getFromRequest("Rodzaj");
-    $this->form->ID_Pizza = ParamUtils::getFromRequest("ID_Pizza", true, "id_pizBłędne wywołanie aplikacji");
-    //$this->form->Nazwa_pizzy = ParamUtils::getFromRequest("Nazwa_pizzy", true, 'naz-pizBłędne wywołanie aplikacji');
-    //$this->form->Rozmiar = ParamUtils::getFromRequest("Rozmiar", true, 'rozm-pizBłędne wywołanie aplikacji');
     $this->form->Data_zamowienia = date('Y-m-d H:i:s');
     $this->form->Cena_dostawy = 5;
     $this->form->Koszt_calkowity = 5;
@@ -40,28 +35,30 @@ class OrderCtrl {
   public function action_showOrders(){
 
     try{
-      $orders = App::getDB()->select("zamowienie", [
+      $this->orders = App::getDB()->select("zamowienie", [
         "ID_Zamowienie",
+        "ID_Uzytkownik",
         "Data_zamowienia",
         "Cena_dostawy",
         "Koszt_calkowity",
       ],[
-        "ID_Uzytkownik" => $this->form->ID_Uzytkownik
+        "ID_Uzytkownik" => SessionUtils::load("ID_Uzytkownik", true),
+        "Status[!]" => "1",
+        "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
       ]);
     } catch (\PDOException $e){
         Utils::addErrorMessage('zamWystąpił nieoczekiwany błąd podczas wyświetlenia rekordu');
         if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
     }
 
-
     try{
-      $pizza = App::getDB()->select("pizza", [
-        "Nazwa",
-        "Cena",
-        "Rozmiar",
+      $this->pizza = App::getDB()->select("pizza", [
+        "[>]zamowienie_pizza" => ["ID_Pizza" => "ID_Pizza"]
       ],[
-        "Nazwa" => $this->form->Nazwa_pizzy,
-        "Rozmiar" => $this->form->Rozmiar
+        "pizza.Nazwa",
+        "pizza.Cena"
+      ],[
+        "zamowienie_pizza.ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
       ]);
     } catch (\PDOException $e){
         Utils::addErrorMessage('pizzWystąpił nieoczekiwany błąd podczas wyświetlenia rekordu');
@@ -69,11 +66,12 @@ class OrderCtrl {
     }
 
     try{
-      $addition = App::getDB()->select("dodatek", [
-        "Nazwa",
-        "Rodzaj",
+      $this->addition = App::getDB()->select("dodatek", [
+        "[>]zamowienie_dodatek" => ["ID_Dodatek" => "ID_Dodatek"]
       ],[
-        "Nazwa" => $this->form->Nazwa_dodatku
+        "dodatek.Nazwa"
+      ],[
+        "zamowienie_dodatek.ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
       ]);
 
     } catch (\PDOException $e){
@@ -85,66 +83,129 @@ class OrderCtrl {
     App::getSmarty()->assign('orders', $this->orders);
     App::getSmarty()->assign('opizza', $this->pizza);
     App::getSmarty()->assign('ododatek', $this->addition);
-    $pizz = App::getDB()->select("pizza" , "*");
-    $add = App::getDB()->select("dodatek", "*");
-    App::getSmarty()->assign("pizza", $pizz);
-    App::getSmarty()->assign("dodatek", $add);
+    $pizzTab = App::getDB()->select("pizza" , "*");
+    $addTab = App::getDB()->select("dodatek", "*");
+    App::getSmarty()->assign("pizza", $pizzTab);
+    App::getSmarty()->assign("dodatek", $addTab);
     App::getSmarty()->display("OrderView.tpl");
+    $isOrder = App::getDB()->select("zamowienie", 'Data_zamowienia', ["Data_zamowienia" => NULL]);
+    App::getSmarty()->assign("isOrder", $isOrder);
   }
 
-  public function action_addToOrder(){
+  public function action_addPizza(){
     $this->getParams();
 
     try{
-      App::getDB()->insert("zamowienie", [
+      App::getDB()->update("zamowienie", [
         "ID_Uzytkownik" => $this->form->ID_Uzytkownik,
         "Data_zamowienia" => $this->form->Data_zamowienia,
         "Cena_dostawy" => $this->form->Cena_dostawy,
         "Koszt_calkowity" => $this->form->Koszt_calkowity
+      ],[
+        "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
       ]);
     } catch (\PDOException $e){
-      Utils::addErrorMessage('zamWystąpił nieoczekiwany błąd podczas zapisu rekordu');
-      if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
-    }
-
-    try{
-      App::getDB()->insert("zamowienie_dodatek", [
-        "ID_Zamowienie" => $this->form->ID_Zamowienie,
-        "ID_Dodatek" => $this->form->ID_Dodatek
-      ]);
-    } catch (\PDOException $e){
-        Utils::addErrorMessage('zam_dodWystąpił nieoczekiwany błąd podczas zapisu rekordu');
+        Utils::addErrorMessage('zam Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
         if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
     }
 
     try{
       App::getDB()->insert("zamowienie_pizza", [
-        "ID_Zamowienie" => $this->form->ID_Zamowienie,
-        "ID_Pizza" => $this->form->ID_Pizza
+        "ID_Pizza" => ParamUtils::getFromRequest("ID_Pizza", true, "id_pizBłędne wywołanie aplikacji"),
+        "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
       ]);
     } catch (\PDOException $e){
-        Utils::addErrorMessage('zam_pizzaWystąpił nieoczekiwany błąd podczas zapisu rekordu');
+        Utils::addErrorMessage('zam_pizz Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
         if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
     }
 
+    Utils::addInfoMessage('Dodano do zamówienia');
+    App::getRouter()->forwardTo("showOrders");
+  }
 
-      App::getRouter()->forwardTo("showOrders");
-      Utils::addInfoMessage('Dodano do zamówienia');
+  public function action_addAddition(){
+    $this->getParams();
+    $this->form->ID_Dodatek = ParamUtils::getFromRequest("ID_Dodatek", true, "id_dod Błędne wywołanie aplikacji");
+
+    try{
+      App::getDB()->update("zamowienie", [
+        "ID_Uzytkownik" => $this->form->ID_Uzytkownik,
+        "Data_zamowienia" => $this->form->Data_zamowienia,
+        "Cena_dostawy" => $this->form->Cena_dostawy,
+        "Koszt_calkowity" => $this->form->Koszt_calkowity
+      ],[
+        "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
+      ]);
+    } catch (\PDOException $e){
+        Utils::addErrorMessage('zam Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+        if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
+
+    try{
+      App::getDB()->insert("zamowienie_dodatek", [
+        "ID_Dodatek" => $this->form->ID_Dodatek,
+        "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
+      ]);
+    } catch (\PDOException $e){
+        Utils::addErrorMessage('zam_dod Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+        if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
+
+    Utils::addInfoMessage('Dodano do zamówienia');
+    App::getRouter()->forwardTo("showOrders");
   }
 
 
-    public function action_deleteOrder(){
+    public function action_deletePizza(){
+
       try{
-        App::getDB()->delete("zamowienie", [
-          "ID_Zamowienie" => $this->form->ID_Zamowienie
+        App::getDB()->delete("zamowienie_pizza", [
+          "ID_Zamowienie" => ParamUtils::getFromCleanURL(1, true, "id_zam Błędne wywołanie aplikacji")
         ]);
       } catch (\PDOException $e){
           Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
           if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
       }
 
-      App::getRouter()->redirectTo('Main_page');
+      App::getRouter()->redirectTo('showOrders');
     }
 
+    public function action_deleteAddition(){
 
+      try{
+        App::getDB()->delete("zamowienie_dodatek", [
+          "ID_Zamowienie" => ParamUtils::getFromCleanURL(1, true, "id_zam Błędne wywołanie aplikacji")
+        ]);
+      } catch (\PDOException $e){
+          Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+          if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+      }
+
+      App::getRouter()->redirectTo('showOrders');
+    }
+
+  public function action_buyPizza(){
+    try{
+      App::getDB()->update("zamowienie", [
+        "Status" => "1"
+    ],[
+      "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)
+    ]);
+    } catch (\PDOException $e) {
+        Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+        if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
+
+    try{
+      App::getDB()->insert("zamowienie", [
+        "ID_Uzytkownik" => SessionUtils::load("ID_Uzytkownik", true)
+    ]);
+    } catch (\PDOException $e) {
+        Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+        if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
+    SessionUtils::store("ID_Zamowienie", App::getDB()->id("ID_Zamowienie"));
+
+    App::getRouter()->redirectTo('showOrders');
+  }
 }

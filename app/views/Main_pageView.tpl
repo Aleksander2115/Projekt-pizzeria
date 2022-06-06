@@ -19,13 +19,6 @@
 				<header id="header">
 					<h1 id="logo"><a href="Main_pageView.tpl"><u>Strona główna</u></a>
 					<span>
-						{if \core\RoleUtils::inRole('Admin')}
-							, czołem Adminie!
-						{else if \core\RoleUtils::inRole('Mod')}
-							, czołem Moderatorze
-						{else if \core\RoleUtils::inRole('User')}
-							, witaj
-						{/if}
 					</h1>
 					</span>
 					<nav id="nav">

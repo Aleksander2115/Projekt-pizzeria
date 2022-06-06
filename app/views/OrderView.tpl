@@ -37,14 +37,13 @@
       <!-- Content -->
             <!-- Form -->
 							<section>
-                <form method="post" action="{$conf->action_url}addToOrder">
+                <form method="post" action="{$conf->action_url}addPizza">
                 <div class="table-wrapper">
 									<table class="alt">
 										<thead>
 											<tr>
 												<th>Pizza-Rozmiar-Cena</th>
 												<th>Dodatki</th>
-                        <th>Opcje</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -54,32 +53,26 @@
                             <option value="">- Pizza -</option>
                             {foreach $pizza as $z}
                             <option value="{$z["ID_Pizza"]}" name="{$z["ID_Pizza"]}">
-                            {$z["ID_Pizza"]}-{$z["Nazwa"]}-{$z["Rozmiar"]}-{$z["Cena"]}
+                            {$z["ID_Pizza"]}-{$z["Nazwa"]}-{$z["Cena"]}
                             </option>
                             {/foreach}
                           </select>
-                        </td>
-                        <td>
-                          <select name="ID_Dodatek" id="ID_Dodatek">
-                            <option value="">- Dodatek -</option>
-                            {foreach $dodatek as $a}
-                            <option value="{$a["ID_Dodatek"]}" name="{$a["ID_Dodatek"]}">
-                            {$a["Nazwa"]}-{$a["Rodzaj"]}
-                            </option>
-                            {/foreach}
-                          </select>
-                          <select name="ID_Dodatek" id="ID_Dodatek">
-                            <option value="">- Dodatek -</option>
-                            {foreach $dodatek as $a}
-                            <option value="{$a["ID_Dodatek"]}" name="{$a["ID_Dodatek"]}">
-                            {$a["Nazwa"]}-{$a["Rodzaj"]}
-                            </option>
-                            {/foreach}
-                          </select>
-                        </td>
-                        <td>
                           <ul class="actions">
-                            <input type="hidden" name="ID_Zamowienie" value="{$form->ID_Zamowienie}">
+                            <li><input type="submit" value="Dodaj do zamówienia" class="primary small" /></li>
+                          </ul>
+                        </td>
+                      </form>
+                      <form method="post" action="{$conf->action_url}addAddition">
+                        <td>
+                          <select name="ID_Dodatek" id="ID_Dodatek">
+                            <option value="">- Dodatek -</option>
+                            {foreach $dodatek as $a}
+                            <option value="{$a["ID_Dodatek"]}" name="{$a["ID_Dodatek"]}">
+                            {$a["Nazwa"]}
+                            </option>
+                            {/foreach}
+                          </select>
+                          <ul class="actions">
                             <li><input type="submit" value="Dodaj do zamówienia" class="primary small" /></li>
                           </ul>
                         </td>
@@ -92,7 +85,7 @@
               </form>
 							</section>
             <header class="major">
-              <h2>Twoje zamówienia</h2>
+              <h2>Koszyk</h2>
             </header>
             <section>
               <div class="table-wrapper">
@@ -100,8 +93,7 @@
                   <thead>
                     <tr>
                       <th>Numer zamówienia</th>
-                      <th>Pizza-Rozmiar-Cena</th>
-                      <th>Dodatki</th>
+                      <th>Pizza-Cena</th>
                       <th>Cena dostawy</th>
                       <th>Koszt całkowity</th>
                       <th>Data zamówienia</th>
@@ -111,19 +103,45 @@
                   <tbody>
                     {foreach $orders as $o}
                     {foreach $opizza as $op}
-                    {foreach $ododatek as $od}
+                    {strip}
                     <tr>
-                      <td>{$op["ID_Zamowienie"]}</td>
-                      <td>{$op["Nazwa"]}-{$op["Rozmiar"]}-{$op["Cena"]}</td>
-                      <td>{$od["Nazwa"]}-{$od["Rodzaj"]}</td>
-                      <td>{$o["Cena_dostawy"]}</td>
-                      <td>{$o["Koszt_calkowity"]}</td>
-                      <td>{$o["Data_zamowienia"]}</td>
+                    <td>{$o["ID_Zamowienie"]}</td>
+                    <td>{$op["Nazwa"]}-{$op["Cena"]}</td>
+                    <td>{$o["Cena_dostawy"]}</td>
+                    <td>{$o["Koszt_calkowity"]}</td>
+                    <td>{$o["Data_zamowienia"]}</td>
                       <td>
-                        <a class="button primary small" href="{url action="#"}">Usuń</a>
+                        <a class="button primary small" href="{url action="deletePizza"}/{$o['ID_Zamowienie']}">Usuń</a>
+                        <a class="button primary small" href="{url action="buyPizza"}/{$o['ID_Zamowienie']}">Kup</a>
                       </td>
                     </tr>
+                    {/strip}
                     {/foreach}
+                  </tbody>
+                </table>
+                  <tfoot>
+                  </tfoot>
+              </div>
+              <div class="table-wrapper">
+                <table class="alt">
+                  <thead>
+                    <tr>
+                      <th>Numer zamówienia</th>
+                      <th>Dodatek</th>
+                      <th>Opcje</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {foreach $ododatek as $ad}
+                    {strip}
+                    <tr>
+                    <td>{$o["ID_Zamowienie"]}</td>
+                    <td>{$ad["Nazwa"]}</td>
+                      <td>
+                        <a class="button primary small" href="{url action="deleteAddition"}/{$o['ID_Zamowienie']}">Usuń</a>
+                      </td>
+                    </tr>
+                    {/strip}
                     {/foreach}
                     {/foreach}
                   </tbody>

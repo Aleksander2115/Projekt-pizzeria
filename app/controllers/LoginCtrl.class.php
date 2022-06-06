@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use core\App;
 use core\Message;
+use core\Validator;
 use core\Utils;
 use core\ParamUtils;
 use core\RoleUtils;
@@ -20,19 +21,26 @@ class LoginCtrl {
     public function getParams(){
       $this->form->Login = ParamUtils::getFromRequest("Login", true, 'logBłędne wywołanie aplikacji');
       $this->form->Haslo = ParamUtils::getFromRequest("Haslo", true, 'haslBłędne wywołanie aplikacji');
-      $this->form->ID_Uzytkownik = App::getDB()->select("uzytkownik" , "ID_Uzytkownik" , ["Login" => $this->form->Login]);
+      $this->form->ID_Uzytkownik = App::getDB()->get("uzytkownik" , "ID_Uzytkownik" , ["Login" => $this->form->Login]);
     }
 
     public function validate(){
 
       $this->getParams();
 
-      if (empty(trim($this->form->Login))) {
-        Utils::addErrorMessage('Wprowadź login');
-      }
-      if (empty(trim($this->form->Haslo))) {
-        Utils::addErrorMessage('Wprowadź hasło');
-      }
+      $v = new Validator();
+
+      $this->form->Login = $v -> validate($this->form->Login, [
+        'trim' => true,
+        'required' => true,
+        'required_message' => 'Login jest wymagany'
+      ]);
+
+      $this->form->Haslo = $v -> validate($this->form->Haslo, [
+        'trim' => true,
+        'required' => true,
+        'required_message' => 'Hasło jest wymagane',
+      ]);
 
       if (App::getMessages()->isError())
         return false;
@@ -43,6 +51,7 @@ class LoginCtrl {
         return !App::getMessages()->isError();
       } else if ($this->form->Login && $this->form->Haslo == "Mod"){
         RoleUtils::addRole("Mod");
+        App::getRouter()->redirectTo("orderList");
         return !App::getMessages()->isError();
       }
 
@@ -64,35 +73,30 @@ class LoginCtrl {
             Utils::addErrorMessage('Użytkownik nie posiada żadnej roli, administrator musi ją dodać');
       }
 
-
       if (App::getMessages()->isError())
         return false;
 
-
-      // $v = new Validator();
-      //
-      // $this->form->Login = $v -> validateFromRequest("Login", [
-      //   'trim' => true,
-      //   'required' => true,
-      //   'required_message' => 'Login jest wymagany'
-      // ]);
-      //
-      // $this->form->Haslo = $v -> validateFromRequest("Haslo", [
-      //   'trim' => true,
-      //   'required' => true,
-      //   'required_message' => 'Hasło jest wymagane',
-      // ]);
+        SessionUtils::store("ID_Uzytkownik", $this->form->ID_Uzytkownik);
+        try{
+          App::getDB()->insert("zamowienie", [
+            "ID_Uzytkownik" => SessionUtils::load("ID_Uzytkownik", true)
+        ]);
+        } catch (\PDOException $e) {
+            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+            if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+        }
+        SessionUtils::store("ID_Zamowienie", App::getDB()->id("zamowienie"));
 
       return !App::getMessages()->isError();
     }
 
 
-    public function action_login(){
-
-      if ($this->validate()){
-        SessionUtils::store("ID_Uzytkownik", $this->form->ID_Uzytkownik);
+  public function action_login(){
+    if ($this->validate()){
         Utils::addInfoMessage('Poprawnie zalogowano do systemu');
-        App::getRouter()->redirectTo("Main_page");
+        $name = App::getDB()->get("uzytkownik", "Imie", ["Login" => $this->form->Login]);
+        App::getSmarty()->assign('firstname', $name);
+        App::getSmarty()->display('Main_pageView.tpl');
       } else {
         Utils::addErrorMessage('vali Błąd logowania');
         App::getSmarty()->assign('form', $this->form);
@@ -101,6 +105,15 @@ class LoginCtrl {
     }
 
     public function action_logout(){
+      try{
+        App::getDB()->delete("zamowienie", [
+          "Status" => "0"
+      ]);
+      } catch (\PDOException $e) {
+          Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+          if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+      }
+
       SessionUtils::remove("ID_Uzytkownik");
       session_destroy();
       App::getRouter()->redirectTo("Main_page");

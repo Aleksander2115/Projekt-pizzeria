@@ -21,7 +21,7 @@ class RegistrationCtrl {
     }
 
     public function getParams(){
-      $this->form->ID_Uzytkownik = ParamUtils::getFromRequest("Imie", true, 'id_uzBłędne wywołąnie aplikacji');
+      $this->form->ID_Uzytkownik = ParamUtils::getFromRequest("ID_Uzytkownik", true, 'id_uzBłędne wywołąnie aplikacji');
       $this->form->Imie = ParamUtils::getFromRequest("Imie", true, 'imBłędne wywołąnie aplikacji');
       $this->form->Nazwisko = ParamUtils::getFromRequest("Nazwisko", true, 'naBłędne wywołąnie aplikacji');
       $this->form->Nr_telefonu = ParamUtils::getFromRequest("Nr_telefonu", true, 'nrteBłędne wywołąnie aplikacji');
@@ -31,6 +31,7 @@ class RegistrationCtrl {
       $this->form->Nr_domu = ParamUtils::getFromRequest("Nr_domu", true, 'nrdomBłędne wywołąnie aplikacji');
       $this->form->Login = ParamUtils::getFromRequest("Login", true, 'logBłędne wywołąnie aplikacji');
       $this->form->Haslo = ParamUtils::getFromRequest("Haslo", true, 'haslBłędne wywołąnie aplikacji');
+      $this->form->Haslo2 = ParamUtils::getFromRequest("Haslo2", true, 'hasl2Błędne wywołąnie aplikacji');
     }
 
 
@@ -39,6 +40,79 @@ class RegistrationCtrl {
   public function validateRegistration() {
 
       $this->getParams();
+
+      $v = new Validator();
+
+      $this->form->Login = $v->validate($this->form->Login, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Login jest wymagany',
+      ]);
+
+      $this->form->Haslo = $v->validate($this->form->Haslo, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Hasło jest wymagane',
+      ]);
+
+      $this->form->Imie = $v->validate($this->form->Imie, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Imię jest wymagane',
+      'min_length' => 3,
+      'max_length' => 30,
+      'validator_message' => 'Imię powinno mieścić się pomiędzy 3 i 30 znakami',
+      ]);
+
+      $this->form->Nazwisko = $v->validate($this->form->Nazwisko, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Nazwisko jest wymagane',
+      ]);
+
+      $this->form->Kod_pocztowy = $v->validate($this->form->Kod_pocztowy, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Kod pocztowy jest wymagany',
+      'int' => true,
+      'validator_message' => 'Kod pocztowy powinien składać się z liczb całkowitych',
+      ]);
+
+      $this->form->Kod_pocztowy = $v->validate($this->form->Kod_pocztowy, [
+      'trim' => true,
+      'min_length' => 5,
+      'max_length' => 5,
+      'validator_message' => 'Kod pocztowy powinien składać się z pięciu liczb',
+      ]);
+
+      $this->form->Miejscowosc = $v->validate($this->form->Miejscowosc, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Miejscowość jest wymagana',
+      ]);
+
+      $this->form->Ulica = $v->validate($this->form->Ulica, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Ulica jest wymagana',
+      ]);
+
+      $this->form->Nr_domu = $v->validate($this->form->Nr_domu, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Numer domu jest wymagany',
+      ]);
+
+      $this->form->Nr_telefonu = $v->validate($this->form->Nr_telefonu, [
+      'trim' => true,
+      'required' => true,
+      'required_message' => 'Numer telefonu jest wymagany',
+      'int' => true,
+      'validator_message' => 'Numer telefonu musi się składać z liczb całkowitych',
+      ]);
+
+      if (App::getMessages()->isError())
+        return false;
 
       if ($this->form->Login && $this->form->Haslo == "Admin"){
         Utils::addErrorMessage('Nie możesz się zarejestrować używając tego loginu i hasła');
@@ -49,32 +123,8 @@ class RegistrationCtrl {
       if (App::getMessages()->isError())
         return false;
 
-      if (empty(trim($this->form->Imie))) {
-        Utils::addErrorMessage('Wprowadź imię');
-      }
-      if (empty(trim($this->form->Nazwisko))) {
-        Utils::addErrorMessage('Wprowadź nazwisko');
-      }
-      if (empty(trim($this->form->Nr_telefonu))) {
-        Utils::addErrorMessage('Wprowadź numer telefonu');
-      }
-      if (empty(trim($this->form->Miejscowosc))) {
-        Utils::addErrorMessage('Wprowadź miejscowość');
-      }
-      if (empty(trim($this->form->Kod_pocztowy))) {
-        Utils::addErrorMessage('Wprowadź kod pocztowy');
-      }
-      if (empty(trim($this->form->Ulica))) {
-        Utils::addErrorMessage('Wprowadź ulicę');
-      }
-      if (empty(trim($this->form->Nr_domu))) {
-        Utils::addErrorMessage('Wprowadź numer domu');
-      }
-      if (empty(trim($this->form->Login))) {
-        Utils::addErrorMessage('Wprowadź login');
-      }
-      if (empty(trim($this->form->Haslo))) {
-        Utils::addErrorMessage('Wprowadź hasło');
+      if($this->form->Haslo != $this->form->Haslo2){
+        Utils::addErrorMessage('Hasła nie są takie same');
       }
 
       if (App::getMessages()->isError())
@@ -86,17 +136,6 @@ class RegistrationCtrl {
       ])){
         Utils::addErrorMessage('Taki użytkownik już istnieje');
       }
-
-      // $v = new Validator();
-      //
-      // $this->form->Imie = $v->validate("Imie", [
-      // 'trim' => true,
-      // 'required' => true,
-      // 'required_message' => 'Imię jest wymagane',
-      // 'min_length' => 3,
-      // 'max_length' => 30,
-      // 'validator_message' => 'Imię powinno mieścić się pomiędzy 3 i 30 znakami',
-      // ]);
 
         return !App::getMessages()->isError();
   }
@@ -127,8 +166,8 @@ class RegistrationCtrl {
               if(App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
           }
           SessionUtils::store("ID_Uzytkownik", $this->form->ID_Uzytkownik);
-          RoleUtils::addRole("User");
-          App::getRouter()->redirectTo("Main_page");
+          //RoleUtils::addRole("User");
+          App::getRouter()->redirectTo("showLogin");
 
         } else {
           Utils::addErrorMessage('ELSE vali BŁĄD');

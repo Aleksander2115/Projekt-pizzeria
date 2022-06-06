@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2022-05-30 21:08:50
+/* Smarty version 4.1.0, created on 2022-06-06 23:00:05
   from 'F:\STUDIA\XAMPP\htdocs\Pizzeria\app\views\Main_pageView.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_62951642216cb4_18085893',
+  'unifunc' => 'content_629e6ad58750d6_90137254',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '281b974013688d8c9baa34e599e58c598a73ce52' => 
     array (
       0 => 'F:\\STUDIA\\XAMPP\\htdocs\\Pizzeria\\app\\views\\Main_pageView.tpl',
-      1 => 1653937656,
+      1 => 1654549201,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62951642216cb4_18085893 (Smarty_Internal_Template $_smarty_tpl) {
+function content_629e6ad58750d6_90137254 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE HTML>
 <!--
 	Landed by HTML5 UP
@@ -42,13 +42,6 @@ function content_62951642216cb4_18085893 (Smarty_Internal_Template $_smarty_tpl)
 				<header id="header">
 					<h1 id="logo"><a href="Main_pageView.tpl"><u>Strona główna</u></a>
 					<span>
-						<?php if (\core\RoleUtils::inRole('Admin')) {?>
-							, czołem Adminie!
-						<?php } elseif (\core\RoleUtils::inRole('Mod')) {?>
-							, czołem Moderatorze
-						<?php } elseif (\core\RoleUtils::inRole('User')) {?>
-							, witaj
-						<?php }?>
 					</h1>
 					</span>
 					<nav id="nav">

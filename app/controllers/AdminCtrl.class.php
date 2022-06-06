@@ -26,20 +26,6 @@ class AdminCtrl{
 
   public function action_adminRoleList(){
 
-    // $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
-    // if (isset($this->form->ID_Rola) && count($this->form->ID_Rola) > 0) {
-    //   $search_params['ID_Rola[~]'] = $this->form->ID_Rola . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
-    // }
-    //
-    // $num_params = sizeof($search_params);
-    // if ($num_params > 1) {
-    //   $where = ["AND" => &$search_params];
-    // } else {
-    //   $where = &$search_params;
-    // }
-    //   //dodanie frazy sortującej po nazwisku
-    // $where ["ORDER"] = "ID_Rola";
-
     try{
       $this->records = App::getDB()->select("uzytkownik_rola", [
         "ID_Uzytkownik",

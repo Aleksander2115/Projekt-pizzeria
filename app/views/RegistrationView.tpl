@@ -33,11 +33,14 @@
 							<section>
 								<form method="post" action="{$conf->action_url}registry">
 									<div class="row gtr-uniform gtr-50">
-                    <div class="col-6 col-12-xsmall">
+                    <div class="col-4 col-12-xsmall">
                       <input type="text" name="Login" id="Login" value="{$form->Login}" placeholder="Login" />
                     </div>
-                    <div class="col-6 col-12-xsmall">
+                    <div class="col-4 col-12-xsmall">
                       <input type="password" name="Haslo" id="Haslo" value="{$form->Haslo}" placeholder="Hasło" />
+                    </div>
+                    <div class="col-4 col-12-xsmall">
+                      <input type="password" name="Haslo2" id="Haslo2" value="{$form->Haslo2}" placeholder="Powtórz hasło" />
                     </div>
                     <div class="col-6 col-12-xsmall">
 											<input type="text" name="Imie" id="Imie" value="" placeholder="Imię" />

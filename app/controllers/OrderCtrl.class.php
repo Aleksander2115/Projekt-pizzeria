@@ -55,6 +55,7 @@ class OrderCtrl {
       $this->pizza = App::getDB()->select("pizza", [
         "[>]zamowienie_pizza" => ["ID_Pizza" => "ID_Pizza"]
       ],[
+		"pizza.ID_Pizza",
         "pizza.Nazwa",
         "pizza.Cena"
       ],[
@@ -69,6 +70,7 @@ class OrderCtrl {
       $this->addition = App::getDB()->select("dodatek", [
         "[>]zamowienie_dodatek" => ["ID_Dodatek" => "ID_Dodatek"]
       ],[
+		"dodatek.ID_Dodatek",
         "dodatek.Nazwa"
       ],[
         "zamowienie_dodatek.ID_Zamowienie" => SessionUtils::load("ID_Zamowienie", true)

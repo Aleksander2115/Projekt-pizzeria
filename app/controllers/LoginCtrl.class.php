@@ -105,14 +105,18 @@ class LoginCtrl {
     }
 
     public function action_logout(){
-      try{
-        App::getDB()->delete("zamowienie", [
+	  
+	    App::getDB()->delete("zamowienie_pizza", [
+          "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie")
+      ]);
+	     
+		App::getDB()->delete("zamowienie_dodatek", [
+          "ID_Zamowienie" => SessionUtils::load("ID_Zamowienie")
+      ]);
+	  
+	    App::getDB()->delete("zamowienie", [
           "Status" => "0"
       ]);
-      } catch (\PDOException $e) {
-          Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
-          if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
-      }
 
       SessionUtils::remove("ID_Uzytkownik");
       session_destroy();

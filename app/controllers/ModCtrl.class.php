@@ -11,7 +11,7 @@ use PDOException;
 class ModCtrl{
 
   private $form;
-  private $pizza_order;
+  private $users_orders;
   private $wholeOrder;
 
   public function action_orderList(){
@@ -22,8 +22,15 @@ class ModCtrl{
         Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
         if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
     }
+	
+	try{
+      $this->users_orders = App::getDB()->select("uzytkownik", "*");
+    } catch (\PDOException $e) {
+        Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+        if (App::getConf()->debug) Utils::addErrorMessage($e->getMessage());
+    }
 
-      App::getSmarty()->assign('pizza_order', $this->pizza_order);
+      App::getSmarty()->assign('users_orders', $this->users_orders);
       App::getSmarty()->assign('wholeOrder', $this->wholeOrder);
       App::getSmarty()->display("ModView.tpl");
   }

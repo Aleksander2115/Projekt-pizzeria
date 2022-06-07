@@ -97,7 +97,6 @@
                       <th>Cena dostawy</th>
                       <th>Koszt całkowity</th>
                       <th>Data zamówienia</th>
-                      <th>Opcje</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,13 +109,11 @@
                     <td>{$o["Cena_dostawy"]}</td>
                     <td>{$o["Koszt_calkowity"]}</td>
                     <td>{$o["Data_zamowienia"]}</td>
-                      <td>
-                        <a class="button primary small" href="{url action="deletePizza"}/{$o['ID_Zamowienie']}">Usuń</a>
-                        <a class="button primary small" href="{url action="buyPizza"}/{$o['ID_Zamowienie']}">Kup</a>
-                      </td>
                     </tr>
                     {/strip}
                     {/foreach}
+					<a class="button primary small" href="{url action="deletePizza"}/{$o['ID_Zamowienie']}">Usuń</a>
+                    <a class="button primary small" href="{url action="buyPizza"}/{$o['ID_Zamowienie']}">Kup</a>
                   </tbody>
                 </table>
                   <tfoot>
@@ -128,7 +125,6 @@
                     <tr>
                       <th>Numer zamówienia</th>
                       <th>Dodatek</th>
-                      <th>Opcje</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -137,13 +133,11 @@
                     <tr>
                     <td>{$o["ID_Zamowienie"]}</td>
                     <td>{$ad["Nazwa"]}</td>
-                      <td>
-                        <a class="button primary small" href="{url action="deleteAddition"}/{$o['ID_Zamowienie']}">Usuń</a>
-                      </td>
                     </tr>
                     {/strip}
                     {/foreach}
                     {/foreach}
+					<a class="button primary small" href="{url action="deleteAddition"}/{$o['ID_Zamowienie']}">Usuń</a>
                   </tbody>
                 </table>
                   <tfoot>

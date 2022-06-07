@@ -41,16 +41,31 @@
                     <tr>
                       <th>Numer zamówienia</th>
                       <th>ID użytkownika</th>
+					  <th>Imię</th>
+					  <th>Nazwisko</th>
+					  <th>Nr_telefonu</th>
+					  <th>Miejscowosc</th>
+					  <th>Kod_pocztowy</th>
+					  <th>Ulica</th>
+					  <th>Nr_domu</th>
                       <th>Data zamówienia</th>
                       <th>Opcje</th>
                     </tr>
                   </thead>
                   <tbody>
                     {foreach $wholeOrder as $wo}
+					{foreach $users_orders as $uo}
                     {strip}
                     <tr>
                     <td>{$wo["ID_Zamowienie"]}</td>
                     <td>{$wo["ID_Uzytkownik"]}</td>
+					<td>{$uo["Imie"]}</td>
+					<td>{$uo["Nazwisko"]}</td>
+					<td>{$uo["Nr_telefonu"]}</td>
+					<td>{$uo["Miejscowosc"]}</td>
+					<td>{$uo["Kod_pocztowy"]}</td>
+					<td>{$uo["Ulica"]}</td>
+					<td>{$uo["Nr_domu"]}</td>
                     <td>{$wo["Data_zamowienia"]}</td>
                       <td>
                         <a class="button primary small" href="{url action="deleteOrderMod"}/{$wo['ID_Zamowienie']}">Usuń</a>
@@ -58,6 +73,7 @@
                     </tr>
                     {/strip}
                     {/foreach}
+					{/foreach}
                   </tbody>
                 </table>
                   <tfoot>
